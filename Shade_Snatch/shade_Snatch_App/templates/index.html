@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}ShadeSnatch {% endblock %}
+
+{% block content %}
+
+<section class="form">
+    <form action="image-upload" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="">Upload any image</label>
+            <input type="file" name="image" >
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+</section>
+
+
+{% if imagedata %}
+<section id="image-display">
+        {{ imagedata }}
+</section>
+
+<section id="colour-list">
+
+</section>
+{% endif %}
+
+{% endblock %}

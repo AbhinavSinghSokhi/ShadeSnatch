@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title%} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <section>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-branding-container">
+                    <!-- branding -->
+                    Branding
+                </div>
+                <div class="navbar-links-container">
+                    <!-- links -->
+                     <div class="navbar-links-div">
+                        <a><div class="navbar-link">Home</div></a>
+                        <a><div class="navbar-link">About</div></a>
+                        <a><div class="navbar-link">Contact</div></a>
+                        <a>
+                            <div class="navbar-link" id="social-links-container">
+                                <div class="social-link"><img src="" alt="insta"></div>
+                                <div class="social-link"><img src="" alt="yt"></div>
+                                <div class="social-link"><img src="" alt="linkedin"></div>
+                            </div>
+                        </a>
+                     </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div>
+        </div>
+    </footer>
+
+</body>
+</html>

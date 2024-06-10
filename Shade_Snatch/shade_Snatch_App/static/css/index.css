@@ -1,0 +1,36 @@
+body{
+    /* background-color: red; */
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.navbar-branding-container{
+
+}
+
+.navbar-links-container{
+    .navbar-links-div{
+        display: flex;
+        gap: 2rem;
+
+        .navbar-link{
+            text-align: center;
+            height: 40px;
+            width: 150px;
+        }
+        #social-links-container{
+            display: flex;
+        }
+    }
+}
+
+
+
+
