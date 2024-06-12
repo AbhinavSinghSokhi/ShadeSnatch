@@ -11,45 +11,53 @@ import os
 def index(request):
     return render(request,"index.html")
 
+def RGB2HEX(color):
+    return "#{:02x}{:02x}{:02x}".format(int(color[0]), int(color[1]), int(color[2]))
+
+def get_image(image_path):
+    image = cv.imread(image_path)
+    image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    return image
+
+def get_colors( image, number_of_colors, show_chart):
+    modified_image = cv.resize(image, (600, 400), interpolation = cv.INTER_AREA)
+    modified_image = modified_image.reshape(modified_image.shape[0]*modified_image.shape[1], 3)
+
+    clf = KMeans(n_clusters = number_of_colors)
+    labels = clf.fit_predict(modified_image)
+
+    counts = Counter(labels)
+
+    center_colors = clf.cluster_centers_
+    # We get ordered colors by iterating through the keys
+    ordered_colors = [center_colors[i] for i in counts.keys()]
+    hex_colors = [RGB2HEX(ordered_colors[i]) for i in counts.keys()]
+    # rgb_colors = [ordered_colors[i] for i in counts.keys()]
+
+    return hex_colors
+
 def image_processing(request):
     if request.method == 'POST':
-        image = request.FILES.get('image')
-        if image:
-            image_upload = Image.objects.create(image=image)
+        uploaded_image = request.FILES.get('image')
+        if uploaded_image:
+            image_upload = Image.objects.create(image=uploaded_image)
             number = image_upload.number  # Retrieve the auto-incremented number
-            print(number)
+            # print(number)
             image_path= image_upload.image.url
-            print(image_path)
+            image_path_for_html= image_path[1:]
+            print("Media path :",image_path_for_html)
             path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static"
             # image_absolute_path = os.path.join(settings.MEDIA_ROOT,image_path)
             image_absolute_path= str("E:"+path+image_path)
-            print(image_absolute_path)
-            img= cv.imread(f"{image_absolute_path}")
-            def RGB2HEX(color):
-                return "#{:02x}{:02x}{:02x}".format(int(color[0]), int(color[1]), int(color[2]))
-            def get_image(image_path):
-                image = cv.imread(image_path)
-                image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-                return image
-            def get_colors( image, number_of_colors, show_chart):
-                modified_image = cv.resize(image, (600, 400), interpolation = cv.INTER_AREA)
-                modified_image = modified_image.reshape(modified_image.shape[0]*modified_image.shape[1], 3)
+            # print(image_absolute_path)
+            # img= cv.imread(f"{image_absolute_path}")
 
-                clf = KMeans(n_clusters = number_of_colors)
-                labels = clf.fit_predict(modified_image)
-
-                counts = Counter(labels)
-
-                center_colors = clf.cluster_centers_
-                # We get ordered colors by iterating through the keys
-                ordered_colors = [center_colors[i] for i in counts.keys()]
-                hex_colors = [RGB2HEX(ordered_colors[i]) for i in counts.keys()]
-                rgb_colors = [ordered_colors[i] for i in counts.keys()]
-
-        # if (show_chart):
-        #     plt.figure(figsize = (8, 6))
-        #     plt.pie(counts.values(), labels = hex_colors, colors = hex_colors)
-
-                return rgb_colors
-        get_colors(get_image('/P_20190718_080222.jpg'), 20, True)
-    return render(request, 'index.html', {'imagedata': number})
+            dominent_colours= get_colors(get_image(f"{image_absolute_path}"), 20, True)
+            # print(dominent_colours)
+            output={
+                'hexcodes': dominent_colours,
+                'image_path': image_path_for_html
+            }
+            return render(request,'index.html', {'output': output})
+    else:
+        return render(request, 'index.html')

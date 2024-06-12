@@ -17,15 +17,33 @@
     </form>
 </section>
 
-
-{% if imagedata %}
+{% if output %}
 <section id="image-display">
-        {{ imagedata }}
+    {% load static %}
+    <img src="{{ output.image_path }}" alt="Your image"  width="500px">
 </section>
+
 
 <section id="colour-list">
-
+    {% for color in output.hexcodes %}
+        <div class="hex_codes">{{color}}</div>
+    {% endfor %}
 </section>
+{% endif %}
+
+
+{% if output %}
+<script>
+    var colorDiv = document.getElementsByClassName('hex_codes');
+    for(var i=0; i<colorDiv.length; i++){
+
+        colorDiv[i].style.height='50px';
+        colorDiv[i].style.width='50px';
+        var color= colorDiv[i].textContent.trim();
+        colorDiv[i].style.backgroundColor= color;
+
+    }
+</script>
 {% endif %}
 
 {% endblock %}
