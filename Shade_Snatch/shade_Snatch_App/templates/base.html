@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title%} {% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <section>
+    <section class="banner-bg">
+        <!-- <img src="{{ output.image_path }}" alt="bg-image" class="bg-image"> -->
+        <div class="bg-gradient" id="gradient-top"></div>
+        <div class="bg-gradient" id="gradient-bottom"></div>
+        <div class="banner-content">
         <nav class="navbar">
             <div class="navbar-container">
                 <div class="navbar-branding-container">
@@ -21,18 +28,17 @@
                         <a><div class="navbar-link">Home</div></a>
                         <a><div class="navbar-link">About</div></a>
                         <a><div class="navbar-link">Contact</div></a>
-                        <a>
-                            <div class="navbar-link" id="social-links-container">
-                                <div class="social-link"><img src="" alt="insta"></div>
-                                <div class="social-link"><img src="" alt="yt"></div>
-                                <div class="social-link"><img src="" alt="linkedin"></div>
-                            </div>
-                        </a>
                      </div>
+                </div>
+                <div class="navbar-social-links">
+                    <div class="social-links-container">
+                        <div class="social-link"><img src="" alt="insta"></div>
+                        <div class="social-link"><img src="" alt="yt"></div>
+                        <div class="social-link"><img src="" alt="linkedin"></div>
+                    </div>
                 </div>
             </div>
         </nav>
-    </section>
 
     <main>
         {% block content %}

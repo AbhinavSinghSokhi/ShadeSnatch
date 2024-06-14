@@ -4,31 +4,49 @@
 
 {% block content %}
 
-<section class="form">
-    <form action="image-upload" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <label for="">Upload any image</label>
-            <input type="file" name="image" >
+        <div class="banner">
+            <!-- banner intro and form button -->
+            <div class="banner-intro-container">
+                <div class="banner-text-container">
+                    <div class="text-title">Welcome to <span>ShadeSnatch</span></div>
+                    <div class="text-heading">Uncover colors.</div>
+                    <div class="text-heading">Create Magic.</div>
+                    <div class="text-subheading">Discover the palette within every picture with just a click!</div>
+                </div>
+                <div class="banner-button-container">
+                    <button class="banner-button">Upload Your Image</button>
+                </div>
+            </div>
+            <!-- banner image -->
+            <div class="image-container">
+                <div class="image">
+                    {% load static %}
+                    <img src="{{ output.image_path }}" alt="Your image"  width="800px">
+                </div>
+            </div>
+
         </div>
-        <div>
-            <button>Submit</button>
-        </div>
-    </form>
+    </div>
 </section>
+
+
+        <form action="image-upload" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="">Upload any image</label>
+                <input type="file" name="image" >
+            </div>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
 
 {% if output %}
-<section id="image-display">
-    {% load static %}
-    <img src="{{ output.image_path }}" alt="Your image"  width="500px">
-</section>
-
-
-<section id="colour-list">
-    {% for color in output.hexcodes %}
-        <div class="hex_codes">{{color}}</div>
-    {% endfor %}
-</section>
+    <div class="colour-list" id="colour-list">
+        {% for color in output.hexcodes %}
+            <div class="hex_codes">{{color}}</div>
+        {% endfor %}
+    </div>
 {% endif %}
 
 
@@ -37,8 +55,8 @@
     var colorDiv = document.getElementsByClassName('hex_codes');
     for(var i=0; i<colorDiv.length; i++){
 
-        colorDiv[i].style.height='50px';
-        colorDiv[i].style.width='50px';
+        colorDiv[i].style.height='100px';
+        colorDiv[i].style.width='100px';
         var color= colorDiv[i].textContent.trim();
         colorDiv[i].style.backgroundColor= color;
 

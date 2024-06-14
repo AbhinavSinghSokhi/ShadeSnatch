@@ -1,13 +1,126 @@
 body{
     /* background-color: red; */
     margin: 0px;
+    color: white;
     padding: 0px;
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.banner-bg{
+    position: relative;
+    /* backdrop-filter: blur(10px); */
+    /* background-color: black; */
+    background-color: #252525;
+    /* backdrop-filter: blur(20px); */
+    height: 90vh;
+    z-index: -2;
+    overflow: hidden;
+    /* align-items: center; */
+    /* overflow: auto; */
+}
+
+.bg-image{
+    /* margin: 0 auto; */
+    /* align-items: center; */
+    position: absolute;
+    z-index: -1;
+    overflow:hidden;
+    height: 100%;
+    scale: 1.5;
+    /* backdrop-filter: blur(20px); */
+}
+
+.bg-gradient{
+    height: 30vh;
+    width: 40vh;
+    position: absolute;
+    z-index: -1;
+    overflow:hidden;
+}
+
+
+#gradient-top{
+    height: 80%;
+    width: 50%;
+    top:-10%;
+    left: -15%;
+    border-radius: 70% 30% 30% 70%/ 60% 40% 60% 40%;
+    -webkit-border-radius: 70% 30% 30% 70%/ 60% 40% 60% 40%;
+    -moz-border-radius: 70% 30% 30% 70%/ 60% 40% 60% 40%;
+    -ms-border-radius: 70% 30% 30% 70%/ 60% 40% 60% 40%;
+    -o-border-radius: 70% 30% 30% 70%/ 60% 40% 60% 40%;
+    -webkit-border-radius: 30% 50% 20% 40%/ 30% 40% 60% 60%;
+    background-image: radial-gradient(circle, #e12d48, #d82a56, #c6446f, #ba4576, #ad467b, #9d4577, #72277f, #7f426c, #6b3d5d, #58384e, #453240, #332c31);
+    animation: rotation 25s infinite linear;
+    -webkit-animation: rotation 25s infinite linear;
+}
+@keyframes rotation{
+    from {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    } to{
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    }
+}
+
+#gradient-bottom{
+    height: 70%;
+    width: 50%;
+    top: 50%;
+    left: 70%;
+    background-image: radial-gradient(circle, #cd5066, #cb576d, #c95e74, #c7657a, #c46b80, #be6d82, #b86e83, #b27084, #a86e82, #f6c3d7, #94697b, #8a6677);
+    border-radius: 70% 50% 60% 70%/ 60% 60% 60% 70%;
+    -webkit-border-radius: 70% 50% 60% 70%/ 60% 60% 60% 70%;
+    -moz-border-radius: 70% 50% 60% 70%/ 60% 60% 60% 70%;
+    -ms-border-radius: 70% 50% 60% 70%/ 60% 60% 60% 70%;
+    -o-border-radius: 70% 50% 60% 70%/ 60% 60% 60% 70%;
+    -webkit-border-radius: 30% 50% 20% 40%/ 30% 40% 60% 60%;
+    animation: antiClock-rotation 25s infinite linear;
+    -webkit-animation: antiClock-rotation 25s infinite linear;
+}
+
+
+@keyframes antiClock-rotation{
+    from {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+} to{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+}
+}
+
+.banner-content{
+    backdrop-filter: blur(90px);
+    height: 100%;
+}
+
+.banner{
+    height: 100%;
+    padding: 5vw 10vw;
+    display: flex;
 }
 
 .navbar-container{
     width: 100%;
+    height: 10vh;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-evenly;
     /* align-items: center; */
 }
 
@@ -25,12 +138,44 @@ body{
             height: 40px;
             width: 150px;
         }
-        #social-links-container{
-            display: flex;
-        }
     }
+}
+.navbar-social-links{
+    .social-links-container{
+        display: flex;
+    };
 }
 
 
 
+.colour-list{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(10, 1fr);
 
+    .hex_codes{
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+}
+}
+
+.banner-intro-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.banner-button{
+    height: 60px;
+    width: 250px;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-image: linear-gradient(to right top, #fd2d62, #f72b57, #f12a4d, #ea2a43, #e32a39);
+    /* background-color: #e12d48; */
+}
