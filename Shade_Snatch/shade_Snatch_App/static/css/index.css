@@ -111,9 +111,11 @@ body{
 }
 
 .banner{
-    height: 100%;
-    padding: 5vw 10vw;
+    height: 90%;
+    width: 80vw;
+    margin: 5vw 10vw;
     display: flex;
+    justify-content: space-between;
 }
 
 .navbar-container{
@@ -147,19 +149,61 @@ body{
 }
 
 
+.color-information{
+    background-color: #171717;
+    padding: 5vh 10vw;
+
+}
 
 .colour-list{
     display: grid;
-    gap: 5px;
+    gap: 15px;
     grid-template-columns: repeat(10, 1fr);
-
+    /* grid-template-rows: ; */
     .hex_codes{
-        border-radius: 10px;
+        /*box-shadow: rgba(255, 255, 255, 0.4) 0px 2px 4px, rgba(255, 255, 255, 0.3) 0px 7px 13px -3px, rgba(255, 255, 255, 0.2) 0px -3px 0px inset;
+        */box-shadow: rgba(255, 255, 255, 0.5) 0px 4px 8px -2px, rgba(255, 255, 255, 0.3) 0px 0px 0px 1px;
+        /*box-shadow: rgba(255, 255, 255, 0.5) 5px 5px 10px;
+        *//*box-shadow: rgb(255, 255, 255) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) 10px 10px -10px 10px inset;
+        *//*box-shadow: rgba(255, 255, 255, 0.25) 0px 25px 50px -12px;
+        *//*box-shadow: rgba(255, 255,255, 0.35) 0px 5px 15px;
+        *//*box-shadow: ;
+        *//*box-sizing: border-box;
+        *//*border: 5px solid white;
+        */border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*padding: 20%;
+        */
+        .hex_codes_container
+            {
+            width: 65%;
+            display: flex;
+            justify-content: space-between;
+        }
+        transition: transform 0.2s ease-in-out;
+        -webkit-transition: transform 0.2s ease-in-out;
+        -moz-transition: transform 0.2s ease-in-out;
+        -ms-transition: transform 0.2s ease-in-out;
+        -o-transition: transform 0.2s ease-in-out;
+    }
 }
+
+.hex_codes:hover {
+    transform: scale(1.1);
+    /*transition-duration: 0.3s;
+    *//*transition-timing-function: ease-in-out;
+    */-webkit-transform: scale(1.2);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    /* background: ; */
 }
 
 .banner-intro-container{
@@ -174,8 +218,18 @@ body{
     width: 250px;
     color: white;
     border: none;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
     font-size: 1.3rem;
     font-weight: 500;
     background-image: linear-gradient(to right top, #fd2d62, #f72b57, #f12a4d, #ea2a43, #e32a39);
     /* background-color: #e12d48; */
+}
+
+.image{
+    width: 50vw;
+/* ,make this div flex and centre the img ta inside it */
+    img{
+        height:50vh; 
+    }
 }

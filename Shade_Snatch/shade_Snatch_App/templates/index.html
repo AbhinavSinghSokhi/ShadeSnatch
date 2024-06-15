@@ -21,7 +21,7 @@
             <div class="image-container">
                 <div class="image">
                     {% load static %}
-                    <img src="{{ output.image_path }}" alt="Your image"  width="800px">
+                    <img src="{{ output.image_path }}" alt="Your image">
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
 </section>
 
 
-        <form action="image-upload" method="POST" enctype="multipart/form-data">
+        <form action='' method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
                 <label for="">Upload any image</label>
@@ -42,21 +42,31 @@
         </form>
 
 {% if output %}
+<section class="color-information">
+
     <div class="colour-list" id="colour-list">
         {% for color in output.hexcodes %}
-            <div class="hex_codes">{{color}}</div>
+        <div class="hex_codes">
+            <div class="hex_codes_container">
+                <div>{{color}}</div>
+                <div><i class="fa-regular fa-copy"></i></div>
+            </div>
+        </div>
         {% endfor %}
     </div>
+</section>
 {% endif %}
 
 
 {% if output %}
+
+<script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
 <script>
     var colorDiv = document.getElementsByClassName('hex_codes');
     for(var i=0; i<colorDiv.length; i++){
 
-        colorDiv[i].style.height='100px';
-        colorDiv[i].style.width='100px';
+        colorDiv[i].style.height='140px';
+        // colorDiv[i].style.width='150px';
         var color= colorDiv[i].textContent.trim();
         colorDiv[i].style.backgroundColor= color;
 
