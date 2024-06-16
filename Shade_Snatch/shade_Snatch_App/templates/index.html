@@ -8,18 +8,23 @@
             <!-- banner intro and form button -->
             <div class="banner-intro-container">
                 <div class="banner-text-container">
-                    <div class="text-title">Welcome to <span>ShadeSnatch</span></div>
-                    <div class="text-heading">Uncover colors.</div>
+                    <div class="text-title">
+                        <div>Welcome to</div>
+                        <div id="title-name">
+                            <span>ShadeSnatch</span>
+                        </div>
+                    </div>
+                    <div class="text-heading">Uncover Colors.</div>
                     <div class="text-heading">Create Magic.</div>
-                    <div class="text-subheading">Discover the palette within every picture with just a click!</div>
                 </div>
                 <div class="banner-button-container">
-                    <button class="banner-button">Upload Your Image</button>
+                    <div class="text-subheading">Discover the palette in every picture by <br>uploading your image!</div>
+                    <button class="banner-button" id="button">Upload Your Image</button>
                 </div>
             </div>
             <!-- banner image -->
             <div class="image-container">
-                <div class="image">
+                <div class="image" id="image">
                     {% load static %}
                     <img src="{{ output.image_path }}" alt="Your image">
                 </div>
@@ -33,7 +38,7 @@
         <form action='' method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
-                <label for="">Upload any image</label>
+                <label for="" id="label">Upload any image</label>
                 <input type="file" name="image" >
             </div>
             <div>
@@ -71,6 +76,16 @@
         colorDiv[i].style.backgroundColor= color;
 
     }
+
+    var btn= document.getElementById('button')
+    btn.addEventListener('click', function(){
+        console.log("button clicked")
+    })
+
+    var label= document.getElementById('label')
+        label.addEventListener('click', function(){
+            console.log("label clicked")
+        })
 </script>
 {% endif %}
 
