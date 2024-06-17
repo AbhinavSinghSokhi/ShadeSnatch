@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import Image
 import cv2 as cv
 from sklearn.cluster import KMeans
@@ -38,10 +38,14 @@ def index(request):
     if request.method == 'POST':
         uploaded_image = request.FILES.get('image')
         if uploaded_image:
+            print(uploaded_image)
+            print("file fetched")
             image_upload = Image.objects.create(image=uploaded_image)
+            print("file object created")
             number = image_upload.number  # Retrieve the auto-incremented number
             # print(number)
             image_path= image_upload.image.url
+            print("file url fetched")
             image_path_for_html= image_path[1:]
             print("Media path :",image_path_for_html)
             path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static"
@@ -57,6 +61,8 @@ def index(request):
                 'image_path': image_path_for_html
             }
             return render(request,'index.html', {'output': output})
+        else:
+            return HttpResponse("Image not found")
     else:
         path= "/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static/images/banner-bg.jpg"
         image_absolute_path= str("E:"+path)

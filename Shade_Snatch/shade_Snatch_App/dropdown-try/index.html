@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,26 @@
             <button type="submit">Upload</button>
         </form>
     </div>
+    <script src="index.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop File Upload</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <div id="drop-zone" class="drop-zone">
+            <p>Drag and drop files here or <span id="file-browser" class="file-browser">browse</span> to upload</p>
+            <input type="file" id="file-input" name="file" class="file-input" style="display: none;">
+        </div>
+        <button type="submit">Upload</button>
+    </form>
     <script src="index.js"></script>
 </body>
 </html>
