@@ -5,5 +5,5 @@ from django.conf import settings
 
 urlpatterns=[
     path('', views.index, name='index'),
-    path('image-upload', views.image_processing, name="image-processing")
+    # path('image-upload', views.image_processing, name="image-processing")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

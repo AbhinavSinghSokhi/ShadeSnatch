@@ -73,13 +73,18 @@
 </div>
     {% if output %}
 <section class="color-information">
+    <div class="color-info-heading">
+        <div class="color-info-title">Total Extracted Colours: {{ output.total_colors }}</div>
+        <div class="color-info-subtitle">Here are the 20 dominant colors we found in your image.</div>
+    </div>
 
     <div class="colour-list" id="colour-list">
         {% for color in output.hexcodes %}
-        <div class="hex_codes">
+        <div class="colour-container">
+            <div class="hex_codes"></div>
             <div class="hex_codes_container">
-                <div>{{color}}</div>
-                <div><i class="fa-regular fa-copy"></i></div>
+                <div class="hex" >{{color}}</div>
+                <div><i class="fa-regular fa-copy copy-btn" id="copy-btn"></i></div>
             </div>
         </div>
         {% endfor %}
@@ -90,22 +95,119 @@
 
 {% if output %}
 
+<style>
+    #toast-container{
+        position: fixed;
+        width: fit-content;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+    }
+    .toast{
+        position: relative;
+        margin-top: 10px;
+        background: white;
+        color: black;
+        padding: 15px 20px;
+        scale:0.5;
+        opacity: 0;
+        bottom: -10px;
+        animation: toast-animation 200ms ease-in-out forwards;
+    }
+    @keyframes toast-animation {
+        to{
+            scale: 1;
+            opacity: 1;
+            bottom: 20px;
+        }
+    }
+    #toast-container h3{
+        margin: 0;
+    }
+
+
+</style>
+
+<div id="toast-container">
+    
+</div>
+
 <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
 <script>
+
+    // selectors
     var colorDiv = document.getElementsByClassName('hex_codes');
+    var hexCodes= document.getElementsByClassName('hex');
+    var toastContainer = document.getElementById('toast-container');
+    let timeout = null;
+
+    // event handlers
+
     for(var i=0; i<colorDiv.length; i++){
 
         colorDiv[i].style.height='140px';
-        // colorDiv[i].style.width='150px';
-        var color= colorDiv[i].textContent.trim();
+        var color= hexCodes[i].textContent.trim();
         colorDiv[i].style.backgroundColor= color;
-
     }
+
+    var copyBtn= document.getElementsByClassName('copy-btn')
+
+    for(let i=0; i<copyBtn.length; i++){
+            // var content = document.getElementById('hex').innerText;
+        copyBtn[i].addEventListener('click', function(){
+            var content= hexCodes[i].innerText;
+
+            // var input = document.createElement('input');
+            // input.style.position = 'fixed';
+            // input.style.opacity = '0';
+            // input.value = content;
+
+            // document.body.appendChild(input);
+
+            // input.select();
+
+            // document.execCommand('copy');
+            // document.body.removeChild(input);
+            // alert('Hex Code copied to clipboard!');
+            navigator.clipboard.writeText(content)
+            createToast();
+        })
+    }
+
+    function createToast(){
+        const newToast = document.createElement("div")
+        newToast.classList.add('toast');
+        newToast.innerHTML = '<h3><i class="fa-solid fa-circle-check tick"></i>  Copied Successfully!</h3>';
+        toastContainer.appendChild(newToast);
+        newToast.animate([{scale: 0.5, opacity: 0, bottom: "-10px"}], {
+            delay: 3800, duration: 200, fill: "forwards"
+        })
+        setTimeout(() => {
+            document.removeChild(newToast);
+        }, 4000)
+    }
+
+    // function createToast(){
+    //     if(timeout) clearTimeout(timeout);
+    //     toast.animate([{scale:1,
+    //         bottom: "20px", opacity: 1}], {
+    //             duration: 200, fill: "forwards"
+    //         })
+
+    //     timeout = setTimeout(() => {
+    //         toast.animate([{scale:0.5,
+    //         bottom: "-10px", opacity: 0}], {
+    //             duration: 200, fill: "forwards"
+    //         })
+    //     }, 3800)
+        
+    // }
 
     var modalBg= document.getElementById('modal-bg');
     var modal= document.getElementById('form-modal');
     var form= document.getElementById('image-upload-form');
     var btn= document.getElementById('button');
+
     btn.addEventListener('click', openmodal)
 
     var closeBtn= document.getElementById('close-btn')
@@ -147,71 +249,72 @@
 
 
 
-    document.addEventListener('DOMContentLoaded', () => {
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const fileBrowser = document.getElementById('file-browser');
-    const uploadForm = document.getElementById('upload-form');
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    // Highlight the drop zone when a file is dragged over it
-    dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        dropZone.classList.add('dragover');
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    // const dropZone = document.getElementById('drop-zone');
+    // const fileInput = document.getElementById('file-input');
+    // const fileBrowser = document.getElementById('file-browser');
+    // const uploadForm = document.getElementById('upload-form');
+    // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    // Remove the highlight when the dragged file leaves the drop zone
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('dragover');
-    });
+    // // Highlight the drop zone when a file is dragged over it
+    // dropZone.addEventListener('dragover', (event) => {
+    //     event.preventDefault();
+    //     dropZone.classList.add('dragover');
+    // });
 
-    // Handle the dropped file
-    dropZone.addEventListener('drop', (event) => {
-        event.preventDefault();
-        dropZone.classList.remove('dragover');
-        const files = event.dataTransfer.files;
-        if (files.length) {
-            fileInput.files = files;
-            previewFile(files[0]);
-        }
-        console.log("files attached via drag and drop: ", fileInput.files);
-    });
+    // // Remove the highlight when the dragged file leaves the drop zone
+    // dropZone.addEventListener('dragleave', () => {
+    //     dropZone.classList.remove('dragover');
+    // });
 
-    // Open file browser when clicking the browse link
-    fileBrowser.addEventListener('click', () => {
-        fileInput.click();
-    });
+    // // Handle the dropped file
+    // dropZone.addEventListener('drop', (event) => {
+    //     event.preventDefault();
+    //     dropZone.classList.remove('dragover');
+    //     const files = event.dataTransfer.files;
+    //     if (files.length) {
+    //         fileInput.files = files;
+    //         previewFile(files[0]);
+    //     }
+    //     console.log("files attached via drag and drop: ", fileInput.files);
+    // });
 
-    fileInput.addEventListener('change', () => {
-        const files = fileInput.files;
-        if (files.length) {
-            previewFile(files[0]);
-        }
-        console.log("Files attched via upload: ",fileInput.files);
-    });
+    // // Open file browser when clicking the browse link
+    // fileBrowser.addEventListener('click', () => {
+    //     fileInput.click();
+    // });
 
-    // Optional: Show a preview of the selected image (if desired)
-    function previewFile(file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = document.createElement('img');
-            img.src = event.target.result;
-            img.style.maxHeight = '180px';
-            img.style.marginTop = '20px';
-            dropZone.innerHTML = '';
-            dropZone.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    }
-    uploadForm.addEventListener('submit', (event) => {
-        // Optional: Add additional form validation here
-        const files = fileInput.files;
-        console.log("form submitted");
-        if (!files.length) {
-            event.preventDefault();
-            alert("Please select an image before submitting.");
-        }
-    });
+    // fileInput.addEventListener('change', () => {
+    //     const files = fileInput.files;
+    //     if (files.length) {
+    //         previewFile(files[0]);
+    //     }
+    //     console.log("Files attched via upload: ",fileInput.files);
+    // });
+
+    // // Optional: Show a preview of the selected image (if desired)
+    // function previewFile(file) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event) => {
+    //         const img = document.createElement('img');
+    //         img.src = event.target.result;
+    //         img.style.maxHeight = '180px';
+    //         img.style.marginTop = '20px';
+    //         dropZone.innerHTML = '';
+    //         dropZone.appendChild(img);
+    //     };
+    //     reader.readAsDataURL(file);
+    // }
+    // uploadForm.addEventListener('submit', (event) => {
+    //     // Optional: Add additional form validation here
+    //     const files = fileInput.files;
+    //     console.log("form submitted");
+    //     if (!files.length) {
+    //         event.preventDefault();
+    //         alert("Please select an image before submitting.");
+    //     }
+    // });
     // uploadForm.addEventListener('submit', (event) => {
     //     event.preventDefault(); // Prevent default form submission
 
@@ -249,7 +352,7 @@
     //         alert("An error occurred during the upload.");
     //     });
     // });
-});
+// });
 
 
 </script>

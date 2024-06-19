@@ -48,10 +48,77 @@
 
         {% endblock %}
     </main>
+    <div class="hr-line-container">
+        <div class="hr-line"></div>
+    </div>
 
     <footer>
-        <div>
+        <div class="footer-container">
+            <!-- logo -->
+            <div class="logo-container">
+                <div>
+                    <img src="{% static 'images/complete-logo.png' %}" alt="logo" class="complete-logo">
+                    <div class="footer-logo-tagline">Uncover Colors, Create Magic.</div>
+                    <!-- <div class="footer-logo-tagline">Create Magic.</div> -->
+                </div>
+            </div>
+            <!-- 2 colums -->
+            <div class="links-container">
+                <div>
+                    <div class="links-titles">Services</div>
+                    <ul>
+                        <li>RGB to Hex Connverter</li>
+                        <li>Hex to RGB Connverter</li>
+                        <li>Color Picker</li>
+                        <li>Image Converter</li>
+                        <li>Image Converter</li>
+                        <li>Extract Pallete from image</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="links-titles">Company</div>
+                    <ul>
+                        <li>Pricing</li>
+                        <li>License</li>
+                        <li>Terms of Service</li>
+                        <li>Privacy Policy</li>
+                        <li>Help Center</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- feedback form -->
+            <div class="social-feedback-container">
+                <!-- socials -->
+                <div class="social-container">
+                    <div class="social-title">Get in touch</div>
+                    <div class="social-icons-container">
+                        <div class="social-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                        <div class="social-icon"><i class="fa-brands fa-github"></i></div>
+                        <div class="social-icon"><i class="fa-brands fa-instagram"></i></div>
+                    </div>
+                </div>
+                <!-- form -->
+                <div class="form-container">
+                    <div class="form-title">We value your feedback</div>
+                    <form action="">
+                        <div>
+                            <input type="email" placeholder="Enter your email" class="email-input">
+                        </div>
+                        <div>
+                            <textarea name="" id="" placeholder="Feedback message" class="message-input"></textarea>
+                        </div>
+                        <div>
+                            <button class="feedback-send-btn">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+        <!-- copyright -->
+         <div class="hr-line"style="margin-left: 10%"></div>
+         <div class="copyright-container">
+            2024@copyright, All rights reserved.
+         </div>
     </footer>
 
 </body>
