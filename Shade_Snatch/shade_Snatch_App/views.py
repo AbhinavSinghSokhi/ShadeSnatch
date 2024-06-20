@@ -26,10 +26,8 @@ def get_colors( image, number_of_colors, show_chart):
     counts = Counter(labels)
 
     center_colors = clf.cluster_centers_
-    # We get ordered colors by iterating through the keys
     ordered_colors = [center_colors[i] for i in counts.keys()]
     hex_colors = [RGB2HEX(ordered_colors[i]) for i in counts.keys()]
-    # rgb_colors = [ordered_colors[i] for i in counts.keys()]
 
     return hex_colors
 
@@ -40,15 +38,11 @@ def get_total_colors(path):
     height, width, channels= img.shape
 
     color_dict = {}
-    # Iterate over each pixel to read the colors
     for y in range(height):
         for x in range(width):
-                # Get the color of the pixel in BGR format
             bgr_color = tuple(img[y, x])
-                # Convert BGR to RGB
             rgb_color = (bgr_color[2], bgr_color[1], bgr_color[0])
 
-                # Update the dictionary with the color count
             if rgb_color in color_dict:
                 color_dict[rgb_color] += 1
             else:
@@ -62,20 +56,14 @@ def index(request):
     if request.method == 'POST':
         uploaded_image = request.FILES.get('image')
         if uploaded_image:
-            print(uploaded_image)
-            print("file fetched")
             image_upload = Image.objects.create(image=uploaded_image)
-            print("file object created")
             image_path= image_upload.image.url
-            print("file url fetched")
             image_path_for_html= image_path[1:]
-            print("Media path :",image_path_for_html)
             path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static"
             image_absolute_path= str("E:"+path+image_path)
 
             dominent_colours= get_colors(get_image(f"{image_absolute_path}"), 20, True)
             total_colors= get_total_colors(f"{image_absolute_path}")
-            # print(dominent_colours)
             output={
                 'hexcodes': dominent_colours,
                 'image_path': image_path_for_html,
@@ -99,29 +87,3 @@ def index(request):
             'total_colors': total_colors
         }
         return render(request,'index.html', {'output': output})
-
-# def image_processing(request):
-#     if request.method == 'POST':
-#         uploaded_image = request.FILES.get('image')
-#         if uploaded_image:
-#             image_upload = Image.objects.create(image=uploaded_image)
-#             number = image_upload.number  # Retrieve the auto-incremented number
-#             # print(number)
-#             image_path= image_upload.image.url
-#             image_path_for_html= image_path[1:]
-#             print("Media path :",image_path_for_html)
-#             path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static"
-#             # image_absolute_path = os.path.join(settings.MEDIA_ROOT,image_path)
-#             image_absolute_path= str("E:"+path+image_path)
-#             # print(image_absolute_path)
-#             # img= cv.imread(f"{image_absolute_path}")
-
-#             dominent_colours= get_colors(get_image(f"{image_absolute_path}"), 20, True)
-#             # print(dominent_colours)
-#             output={
-#                 'hexcodes': dominent_colours,
-#                 'image_path': image_path_for_html
-#             }
-#             return render(request,'index.html', {'output': output})
-#     else:
-#         return render(request, 'index.html')
