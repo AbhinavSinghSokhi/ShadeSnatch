@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f@yidfmy(7x2*=*8(0=4z&nf&ox-r1vi!)$-brn#(yu&mp9e(-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -128,6 +128,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_FILES_URL =[
     os.path.join(BASE_DIR, "shade_Snatch_App","static")
 ]
+# for deployement purpose, in order to serve static files from a single source i.e. staticfiles directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 MEDIA_URL = '/media/'
