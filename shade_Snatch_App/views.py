@@ -59,7 +59,7 @@ def index(request):
             image_upload = Image.objects.create(image=uploaded_image)
             image_path= image_upload.image.url
             image_path_for_html= image_path[1:]
-            path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static"
+            path="/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/shade_Snatch_App/static"
             image_absolute_path= str("E:"+path+image_path)
 
             dominent_colours= get_colors(get_image(f"{image_absolute_path}"), 20, True)
@@ -73,7 +73,7 @@ def index(request):
         else:
             return HttpResponse("Image not found")
     else:
-        path= "/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/Shade_Snatch/shade_Snatch_App/static/images/banner-bg.jpg"
+        path= "/_Coding/openCV/Projects/real_world_projects/ShadeSnatch/shade_Snatch_App/static/images/banner-bg.jpg"
         image_absolute_path= str("E:"+path)
 
         image_path_for_html= "./../static/images/banner-bg.jpg"
